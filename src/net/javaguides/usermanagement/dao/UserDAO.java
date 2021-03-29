@@ -11,16 +11,16 @@ import java.util.List;
 import net.javaguides.usermanagement.model.User;
 
 public class UserDAO {
-	private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false";
-	private String jdbcUsername = "root";
-	private String jdbcPassword = "Vishesh@1989";
-	
+	private String jdbcURL = "jdbc:mysql://localhost:3306/DATABASE_NAME?useSSL=false";
+	private String jdbcUsername = "USERNAME";
+	private String jdbcPassword = "PASSWORD";
+
 	private static final String INSERT_USERS_SQL = "insert into users " + " (name, email, country) values " + " (?, ?, ?);";
 	private static final String SELECT_USER_BY_ID = "select * from user where id =?;";
 	private static final String SELECT_ALL_USERS = "select * from users;";
 	private static final String DELETE_USERS_SQL = "delete from users where id =?;";
 	private static final String UPDATE_USERS_SQL = "update users set name =?, email =?, country =? where id =?;";
-	
+
 	protected Connection getConnection() {
 		Connection connection = null;
 		try {
@@ -33,7 +33,7 @@ public class UserDAO {
 		}
 		return connection;
 	}
-		
+
 	public void insertUser(User user) throws SQLException {
 		try(Connection connection = getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
@@ -44,8 +44,8 @@ public class UserDAO {
 		} catch ( Exception e) {
 			e.printStackTrace();
 		}
-	}	
-	
+	}
+
 	public User selectUser(int id) {
 		User user = null;
 		// Step 1: Establishing a Connection
@@ -69,7 +69,7 @@ public class UserDAO {
 		}
 		return user;
 	}
-	
+
 	public List<User> selectAllUsers() {
 
 		// using try-with-resources to avoid closing resources (boiler plate code)
@@ -96,7 +96,7 @@ public class UserDAO {
 		}
 		return users;
 	}
-	
+
 	public boolean deleteUser(int id) throws SQLException {
 		boolean rowDeleted;
 		try (Connection connection = getConnection();
@@ -120,7 +120,7 @@ public class UserDAO {
 		}
 		return rowUpdated;
 	}
-	
+
 	private void printSQLException(SQLException ex) {
 		for (Throwable e : ex) {
 			if (e instanceof SQLException) {
